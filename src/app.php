@@ -34,6 +34,8 @@ $tables = [
             }
             ?>
         </ul>
+        <h2>Diagram Alur Database</h2>
+        <a href="view/ER.php" class="btn btn-add"><i class="fas fa-arrow-right"></i> Lihat Diagram Alur Database</a>
     </div>
 </body>
 
