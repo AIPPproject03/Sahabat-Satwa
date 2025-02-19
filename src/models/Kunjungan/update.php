@@ -22,9 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $klinik_id = $_POST['Klinik_ID'];
     $tanggal = $_POST['Kunjungan_Tanggal'];
     $keterangan = $_POST['Kunjungan_Keterangan'];
-    $resep_id = $_POST['Resep_ID'] ? $_POST['Resep_ID'] : NULL;
+    $resep_id = $_POST['Resep_ID'] !== '' ? $_POST['Resep_ID'] : NULL;
 
-    $sql = "CALL update_kunjungan('$id', '$tanggal', '$keterangan', '$hewan_id', '$dokter_id', '$klinik_id', '$resep_id')";
+    if ($resep_id === NULL) {
+        $sql = "CALL update_kunjungan('$id', '$tanggal', '$keterangan', '$hewan_id', '$dokter_id', '$klinik_id', NULL)";
+    } else {
+        $sql = "CALL update_kunjungan('$id', '$tanggal', '$keterangan', '$hewan_id', '$dokter_id', '$klinik_id', '$resep_id')";
+    }
 
     if ($conn->query($sql) === TRUE) {
         echo "Record updated successfully";

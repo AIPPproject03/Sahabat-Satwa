@@ -19,9 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $klinik_id = $_POST['Klinik_ID'];
     $tanggal = $_POST['Kunjungan_Tanggal'];
     $keterangan = $_POST['Kunjungan_Keterangan'];
-    $resep_id = $_POST['Resep_ID'] ? $_POST['Resep_ID'] : NULL;
+    $resep_id = $_POST['Resep_ID'] !== '' ? $_POST['Resep_ID'] : NULL;
 
-    $sql = "CALL insert_kunjungan('$tanggal', '$keterangan', '$hewan_id', '$dokter_id', '$klinik_id', '$resep_id')";
+    if ($resep_id === NULL) {
+        $sql = "CALL insert_kunjungan('$tanggal', '$keterangan', '$hewan_id', '$dokter_id', '$klinik_id', NULL)";
+    } else {
+        $sql = "CALL insert_kunjungan('$tanggal', '$keterangan', '$hewan_id', '$dokter_id', '$klinik_id', '$resep_id')";
+    }
 
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
